@@ -26,7 +26,7 @@ services:
           ports:
             - "8035:8025"
           environment:
-            SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/student_db
+            SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/student_db
             SPRING_DATASOURCE_USERNAME: postgres
             SPRING_DATASOURCE_PASSWORD: tayfur2005
             SPRING_PROFILES_ACTIVE: dev
