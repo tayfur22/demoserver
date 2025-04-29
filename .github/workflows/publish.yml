@@ -18,7 +18,7 @@ jobs:
       contents: read
       packages: write
     env:
-      IMAGE_NAME: qolum-backend
+      IMAGE_NAME: tayfur-backend
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GITHUB_REPO_OWNER: ${{ github.repository_owner }}
       IMAGE_TAG: ${{ github.sha }}
@@ -60,8 +60,8 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          docker build -t ghcr.io/${{ github.repository }}/qolum-backend:${{ github.sha }} .
-          docker push ghcr.io/${{ github.repository }}/qolum-backend:${{ github.sha }}
+          docker build -t ghcr.io/${{ github.repository }}/tayfur-backend:${{ github.sha }} .
+          docker push ghcr.io/${{ github.repository }}/tayfur-backend:${{ github.sha }}
 
       #      - name: Setup SSH
       #        run: |
