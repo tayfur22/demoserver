@@ -71,7 +71,7 @@ jobs:
 
       - name: Transfer Compose File
         run: |
-          scp -i $HOME/.ssh/private_key -P $SERVER_PORT -o StrictHostKeyChecking=no docker-compose.$ENV.yml $SERVER_USER@$SERVER_HOST:~/workspace/backend/tayfur/
+          scp -i $HOME/.ssh/private_key -P $SERVER_PORT -o StrictHostKeyChecking=no docker-compose.yml $SERVER_USER@$SERVER_HOST:~/workspace/backend/tayfur/
 
       - name: Debug Environment Variables
         run: |
@@ -85,9 +85,9 @@ jobs:
             export GITHUB_REPO_OWNER=${GITHUB_REPO_OWNER}
             export TAG=${TAG}
             echo "${GITHUB_TOKEN}" | docker login ghcr.io -u ${GITHUB_REPO_OWNER} --password-stdin
-            envsubst < docker-compose.$ENV.yml > docker-compose.substituted.yml
-            mv docker-compose.substituted.yml docker-compose.$ENV.yml
-            docker-compose -f docker-compose.$TAG.yml pull
-            docker-compose -f docker-compose.$ENV.yml down
-            docker-compose -f docker-compose.$ENV.yml up -d
+            envsubst < docker-compose.yml > docker-compose.substituted.yml
+            mv docker-compose.substituted.yml docker-compose.yml
+            docker-compose -f docker-compose.yml pull
+            docker-compose -f docker-compose.yml down
+            docker-compose -f docker-compose.yml up -d
           EOF
