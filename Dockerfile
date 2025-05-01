@@ -33,4 +33,3 @@ EXPOSE 8025
 
 # Command to run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
-

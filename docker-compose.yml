@@ -1,3 +1,50 @@
+#version: '3.8'
+#
+#services:
+#  db:
+#    image: postgres:latest
+#    container_name: tayfur-db
+#    environment:
+#      POSTGRES_USER: postgres
+#      POSTGRES_PASSWORD: tayfur2005
+#      POSTGRES_DB: tayfur-db
+#    ports:
+#      - "5445:5432"
+#    networks:
+#      - tayfur-network
+#    volumes:
+#      - db-data:/var/lib/postgresql/data
+#
+#  backend:
+#          #    image: ghcr.io/${GITHUB_REPO_OWNER}/kamil-demo-backend:${TAG}
+#          build:
+#            context: .
+#            dockerfile: Dockerfile
+#          container_name: tayfur-demo-dev
+#          depends_on:
+#            - db
+#          ports:
+#            - "8035:8025"
+#          environment:
+#            SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/tayfur-db
+#            SPRING_DATASOURCE_USERNAME: postgres
+#            SPRING_DATASOURCE_PASSWORD: tayfur2005
+#            SPRING_PROFILES_ACTIVE: dev
+#          networks:
+#            - tayfur-network
+#
+#networks:
+#  tayfur-network:
+#    driver: bridge
+#
+#
+#volumes:
+#  db-data:
+#     driver: local
+#
+#
+#
+
 version: '3.8'
 
 services:
@@ -7,7 +54,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: tayfur2005
-      POSTGRES_DB: tayfur-db
+      POSTGRES_DB: postgres
     ports:
       - "5445:5432"
     networks:
@@ -16,28 +63,27 @@ services:
       - db-data:/var/lib/postgresql/data
 
   backend:
-          #    image: ghcr.io/${GITHUB_REPO_OWNER}/kamil-demo-backend:${TAG}
-          build:
-            context: .
-            dockerfile: Dockerfile
-          container_name: tayfur-demo-dev
-          depends_on:
-            - db
-          ports:
-            - "8035:8025"
-          environment:
-            SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/tayfur-db
-            SPRING_DATASOURCE_USERNAME: postgres
-            SPRING_DATASOURCE_PASSWORD: tayfur2005
-            SPRING_PROFILES_ACTIVE: dev
-          networks:
-            - tayfur-network
+    image: ghcr.io/${GITHUB_REPO_OWNER}/tayfur-backend:${TAG}
+    #    build:
+    #      context: .
+    #      dockerfile: Dockerfile
+    container_name: tayfur-demo-dev
+    depends_on:
+      - db
+    ports:
+      - "8035:8025"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/tayfur-db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: tayfur2005
+      SPRING_PROFILES_ACTIVE: dev
+    networks:
+     - tayfur-network
 
 networks:
   tayfur-network:
     driver: bridge
 
-
 volumes:
   db-data:
-     driver: local
+    driver: local
